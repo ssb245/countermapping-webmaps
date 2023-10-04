@@ -14,7 +14,7 @@
 	<div class="map-overlay top">
 		<div class="map-overlay-inner">
 			<h2>Public and Affordable Housing Flood Risk</h2>
-			<!-- INSERT TEXT HERE -->
+			<h3>This map displays the inundated areas from Hurricane Sandy alongside public and affordable housing developments to show vulnerable properties. The map uses data from NYC Open Data for the inundation zone and data from New York City Housing Developments (NYCHA) for the public and affordable housing layer.</h3>
 		</div>
 	</div>
 <script>
@@ -39,7 +39,22 @@
 				'fill-color':'#00158f',
 				'fill-opacity': 0.5
 			}
-		})
+		});
+		map.addSource('nycha_layer', {
+			'type':'vector',
+			'url': 'mapbox://ssb245.cdyzbw1n'
+		});
+		map.addLayer(
+		{
+			'id': 'nycha',
+			'type':'fill',
+			'source': 'nycha_layer',
+			'source-layer': 'Map_of_NYCHA_Developments-dm2a9n',
+			'paint':{
+				'fill-color':'#ffac1c',
+				'fill-opacity': 0.5
+			}
+		});
 	});
 </script>
 </body>
