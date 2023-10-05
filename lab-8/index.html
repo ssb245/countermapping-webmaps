@@ -16,6 +16,20 @@
 			<h2>Public and Affordable Housing Flood Risk</h2>
 			<p>In the fall of 2012, New York City was hit with hurricane Sandy that left tens of thousands of public housing residents <a href= "https://www1.nyc.gov/site/nycha/about/press/pr-2012/nycha-has-restored-power-to-buildings-affected-by-hurricane-sandy.page">without power for days or even weeks</a>. New York City Housing Authority public housing developments were affected. <a href="https://furmancenter.org/files/publications/SandysEffectsOnHousingInNYC.pdf">24,000 government-subsidized apartments and 40,000 rent-stabilized apartments were also affected</a>.</p>
 			<p>With rising sea levels from climate change and the <a href= "https://www.nytimes.com/2017/04/18/magazine/when-rising-seas-transform-risk-into-certainty.html">promise</a> of more flooding, which areas and <i>who</i> will likely be most affected? How is affordable housing construction responding to this? </p>
+			<div id='menu'>
+				<label class='check-container'>
+					Sandy Inundation Zone
+					<input id='flood_zones' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					NYCHA Buildings
+					<input id='nycha' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					+300 People Below Poverty Line
+					<input id='povertyLevel' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+			</div>
 		</div>
 	</div>
 <script>
@@ -28,6 +42,114 @@
 	});
 
 	map.on('load',function(){
+		map.addSource('censusLayer', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.6nowkujs'
+		});
+		map.addLayer(
+		{
+			'id': 'povertyLevel',
+			'type':'fill',
+			'source': 'censusLayer',
+			'source-layer': 'nyc_blck_grp_2020_wcensus_dro-4db43i',
+			'paint':{
+				'fill-color': ['step',
+					['get', 'AMR5E002'],
+					'transparent', 300, '#deb4c6'
+					],
+				'fill-opacity': 0.9
+			}
+		});
+		map.addSource('2020_1in100yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.bbchggzx'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2020_1in100yr',
+			'type':'fill',
+			'source':'2020_1in100yr',
+			'source-layer':'FutureFloodplains_2020_100yr-du18hr',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2020_1in500yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.05ogder8'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2020_1in500yr',
+			'type':'fill',
+			'source':'2020_1in500yr',
+			'source-layer':'FutureFloodplains_2020_500yr-0x77x0',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2050_1in100yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.crrx4301'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2050_1in100yr',
+			'type':'fill',
+			'source':'2050_1in100yr',
+			'source-layer':'FutureFloodplains_2050_100yr-6nepei',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2050_1in500yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.4ydk0450'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2050_1in500yr',
+			'type':'fill',
+			'source':'2050_1in500yr',
+			'source-layer':'FutureFloodplains_2050_500yr-a4444h',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2100_1in100yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.dxjuiivg'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2100_1in100yr',
+			'type':'fill',
+			'source':'2100_1in100yr',
+			'source-layer':'FutureFloodplains_2100_100yr-cqwfrw',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2100_1in500yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.8thgevrt'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2100_1in500yr',
+			'type':'fill',
+			'source':'2100_1in500yr',
+			'source-layer':'FutureFloodplains_2100_500yr-27ghpw',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
 		map.addSource('sandy_layer', {
 			'type':'vector',
 			'url': 'mapbox://ssb245.1s1k1570'
@@ -58,21 +180,24 @@
 				'fill-opacity': 0.5
 			}
 		});
-		map.addSource('censusLayer', {
-			'type':'vector',
-			'url': 'mapbox://iamwfx.6nowkujs'
-		});
-		map.addLayer(
-		{
-			'id': 'povertyLevel',
-			'type':'fill',
-			'source': 'censusLayer',
-			'source-layer': 'nyc_blck_grp_2020_wcensus_dro-4db43i',
-			'paint':{
-				'fill-color':'#b5fe89',
-				'fill-opacity': 0.5
+		map.setLayoutProperty('flood_zones',"visibility", "visible");
+		map.setLayoutProperty('povertyLevel',"visibility", "visible");
+		map.setLayoutProperty('nycha',"visibility", "visible");
+		var layerList=document.getElementById("menu");
+		var checkboxes=layerList.getElementsByTagName("input");
+		function switchLayer(layer) {
+			var clickedLayersLabel = layer.target.id;
+			var clickedLayers = eval(clickedLayersLabel);
+			var visibility = map.getLayoutProperty(clickedLayersLabel, "visibility");
+			if (visibility === "visible") {
+				map.setLayoutProperty(clickedLayersLabel, "visibility", "none")
+			} else {
+				map.setLayoutProperty(clickedLayersLabel, "visibility", "visible")
 			}
-		});
+		}
+		for (var i=0; i < checkboxes.length; i++) {
+			checkboxes[i].onclick= switchLayer;
+		}
 	});
 </script>
 </body>
