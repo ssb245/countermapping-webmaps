@@ -29,6 +29,30 @@
 					+300 People Below Poverty Line
 					<input id='povertyLevel' type='checkbox' name='viz-toggle' checked='checked'>
 				</label>
+				<label class='check-container'>
+					2020 Predicted Floodplains (1 in 100 year flood)
+					<input id='ffp_2020_1in100yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					2020 Predicted Floodplains (1 in 500 year flood)
+					<input id='ffp_2020_1in500yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					2050 Predicted Floodplains (1 in 100 year flood)
+					<input id='ffp_2050_1in100yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					2050 Predicted Floodplains (1 in 500 year flood)
+					<input id='ffp_2050_1in500yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					2100 Predicted Floodplains (1 in 100 year flood)
+					<input id='ffp_2100_1in100yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					2100 Predicted Floodplains (1 in 500 year flood)
+					<input id='ffp_2100_1in500yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
 			</div>
 		</div>
 	</div>
@@ -183,6 +207,12 @@
 		map.setLayoutProperty('flood_zones',"visibility", "visible");
 		map.setLayoutProperty('povertyLevel',"visibility", "visible");
 		map.setLayoutProperty('nycha',"visibility", "visible");
+		map.setLayoutProperty('ffp_2020_1in100yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2020_1in500yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2050_1in100yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2050_1in500yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2100_1in100yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2100_1in500yr',"visibility", "visible");
 		var layerList=document.getElementById("menu");
 		var checkboxes=layerList.getElementsByTagName("input");
 		function switchLayer(layer) {
