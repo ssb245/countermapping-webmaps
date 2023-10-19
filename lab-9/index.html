@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>NYC Housing Flood Risk</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet' />
+<link href='style.css' rel='stylesheet' />
+<link href="https://fonts.googleapis.com/css2?family=Monserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div id="map"></div>
+	<div class="map-overlay">
+		<div class="map-overlay-inner">
+			<h2>Public and Affordable Housing Flood Risk</h2>
+			<p>In the fall of 2012, New York City was hit with hurricane Sandy that left tens of thousands of public housing residents <a href= "https://www1.nyc.gov/site/nycha/about/press/pr-2012/nycha-has-restored-power-to-buildings-affected-by-hurricane-sandy.page">without power for days or even weeks</a>. New York City Housing Authority public housing developments were affected. <a href="https://furmancenter.org/files/publications/SandysEffectsOnHousingInNYC.pdf">24,000 government-subsidized apartments and 40,000 rent-stabilized apartments were also affected</a>.</p>
+			<p>With rising sea levels from climate change and the <a href= "https://www.nytimes.com/2017/04/18/magazine/when-rising-seas-transform-risk-into-certainty.html">promise</a> of more flooding, which areas and <i>who</i> will likely be most affected? How is affordable housing construction responding to this? </p>
+			<div id='menu'>
+				<label class='check-container'>
+              Affordable Housing Types
+              <input id='affHousing' type='checkbox' name='viz-toggle' checked='checked'>
+          </label>
+          <label class='check-container'>Co-Op
+              <span class="legend-key" style='background:#f79824'></span>
+          </label>
+          <label class='check-container'>Shelter
+              <span class="legend-key" style='background:#7cdedc'></span>
+          </label>
+          <label class='check-container'>HPD subsized
+              <span class="legend-key" style='background:#ef798a'></span>
+          </label>
+          <label class='check-container'>Mobile Home
+              <span class="legend-key" style='background:#f2f79e'></span>
+          </label>
+          <label class='check-container'>Public Housing
+              <span class="legend-key" style='background:#7871aa'></span>
+          </label>
+          <label class='check-container'>Single-Residency Housing
+              <span class="legend-key" style='background:#f3c178'></span>
+          </label>
+          <label class='check-container'>Other
+              <span class="legend-key" style='background:#CCC'></span>
+          </label>
+
+				<br>
+<!-- <h3>Race and Socioeconomic Status</h3> -->
+				<label class='check-container'>
+					+300 People Below Poverty Line
+					<input id='povertyLevel' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<h3>Flood Risk Zones</h3>
+				<label class='check-container'>
+					2012 Sandy Inundation Zone
+					<input id='flood_zones' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<br>
+				<b>Predicted Floodplains</b>
+				<label class='check-container'>
+					In 2020 (1 in 100 year flood)
+					<input id='ffp_2020_1in100yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					In 2020 (1 in 500 year flood)
+					<input id='ffp_2020_1in500yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					In 2050 (1 in 100 year flood)
+					<input id='ffp_2050_1in100yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					In 2050 (1 in 500 year flood)
+					<input id='ffp_2050_1in500yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					In 2100 (1 in 100 year flood)
+					<input id='ffp_2100_1in100yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<label class='check-container'>
+					In 2100 (1 in 500 year flood)
+					<input id='ffp_2100_1in500yr' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>
+				<!--<label class='check-container'>
+					NYCHA Buildings
+					<input id='nycha' type='checkbox' name='viz-toggle' checked='checked'>
+				</label>-->
+			</div>
+		</div>
+	</div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1Ijoic3NiMjQ1IiwiYSI6ImNsbjM2OWcwNzBkcncya3A5cW1xcDVveHYifQ.xLMsLxb2C4-z2_aHTmPkyw';
+	const map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/ssb245/cln3ma5tk06q401qrgs0og3e4',
+		center: [-73.935242, 40.730610],
+		zoom: 13,
+		minZoom: 12,
+	});
+
+	map.on('load',function(){
+		map.addSource('censusLayer', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.6nowkujs'
+		});
+		map.addLayer(
+		{
+			'id': 'povertyLevel',
+			'type':'fill',
+			'source': 'censusLayer',
+			'source-layer': 'nyc_blck_grp_2020_wcensus_dro-4db43i',
+			'paint':{
+				'fill-color': ['step',
+					['get', 'AMR5E002'],
+					'transparent', 300, '#deb4c6'
+					],
+				'fill-opacity': 0.9
+			}
+		});
+		map.addSource('Housing', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.ab4g098q'
+		});
+		map.addLayer(
+		{
+			'id':'affHousing',
+			'type':'line',
+			'source':'Housing',
+			'source-layer':'PLUTO_HOUS_TYPE_MASTER_Featu-7b5u7f',
+			'paint':{
+				'line-color': [
+					'match',
+					['get', 'hous_type'],
+					'coop',
+					'#f79824',
+					'homeless',
+					'#7cdedc',
+					'hpd_sub',
+					'#ef798a',
+					'mob_home',
+					'#f2f79e',
+					'pub_hou',
+					'#7871aa',
+					'sro',
+					'#f3c178',
+					/* other */ '#ccc'
+					],
+				'line-opacity': 1,
+				'line-width': ['interpolate', ['linear'], ['zoom'], 13, 2, 18, 10]
+			}
+		});
+		map.addSource('2020_1in100yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.bbchggzx'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2020_1in100yr',
+			'type':'fill',
+			'source':'2020_1in100yr',
+			'source-layer':'FutureFloodplains_2020_100yr-du18hr',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2020_1in500yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.05ogder8'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2020_1in500yr',
+			'type':'fill',
+			'source':'2020_1in500yr',
+			'source-layer':'FutureFloodplains_2020_500yr-0x77x0',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2050_1in100yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.crrx4301'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2050_1in100yr',
+			'type':'fill',
+			'source':'2050_1in100yr',
+			'source-layer':'FutureFloodplains_2050_100yr-6nepei',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2050_1in500yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.4ydk0450'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2050_1in500yr',
+			'type':'fill',
+			'source':'2050_1in500yr',
+			'source-layer':'FutureFloodplains_2050_500yr-a4444h',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2100_1in100yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.dxjuiivg'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2100_1in100yr',
+			'type':'fill',
+			'source':'2100_1in100yr',
+			'source-layer':'FutureFloodplains_2100_100yr-cqwfrw',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('2100_1in500yr', {
+			'type':'vector',
+			'url': 'mapbox://iamwfx.8thgevrt'
+		});
+		map.addLayer(
+		{
+			'id':'ffp_2100_1in500yr',
+			'type':'fill',
+			'source':'2100_1in500yr',
+			'source-layer':'FutureFloodplains_2100_500yr-27ghpw',
+			'paint':{
+				'fill-color':'#5494DA',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('sandy_layer', {
+			'type':'vector',
+			'url': 'mapbox://ssb245.1s1k1570'
+		});
+		map.addLayer(
+		{
+			'id':'flood_zones',
+			'type':'fill',
+			'source':'sandy_layer',
+			'source-layer':'Sandy_Inundation_Zone-1hwhu7',
+			'paint':{
+				'fill-color':'#00158f',
+				'fill-opacity': 0.3
+			}
+		});
+		map.addSource('nycha_layer', {
+			'type':'vector',
+			'url': 'mapbox://ssb245.cdyzbw1n'
+		});
+		//map.addLayer(
+		//{
+			//'id': 'nycha',
+			//'type':'fill',
+			//'source': 'nycha_layer',
+			//'source-layer': 'Map_of_NYCHA_Developments-dm2a9n',
+			//'paint':{
+				//'fill-color':'#ffac1c',
+				//'fill-opacity': 0.5
+			//}
+		//});
+		map.setLayoutProperty('flood_zones',"visibility", "visible");
+		map.setLayoutProperty('povertyLevel',"visibility", "visible");
+		//map.setLayoutProperty('nycha',"visibility", "visible");
+		map.setLayoutProperty('ffp_2020_1in100yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2020_1in500yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2050_1in100yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2050_1in500yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2100_1in100yr',"visibility", "visible");
+		map.setLayoutProperty('ffp_2100_1in500yr',"visibility", "visible");
+		map.setLayoutProperty('affHousing', "visibility", "visible");
+		var layerList=document.getElementById("menu");
+		var checkboxes=layerList.getElementsByTagName("input");
+		function switchLayer(layer) {
+			var clickedLayersLabel = layer.target.id;
+			var clickedLayers = eval(clickedLayersLabel);
+			var visibility = map.getLayoutProperty(clickedLayersLabel, "visibility");
+			if (visibility === "visible") {
+				map.setLayoutProperty(clickedLayersLabel, "visibility", "none")
+			} else {
+				map.setLayoutProperty(clickedLayersLabel, "visibility", "visible")
+			}
+		}
+		for (var i=0; i < checkboxes.length; i++) {
+			checkboxes[i].onclick= switchLayer;
+		}
+	const popup = new mapboxgl.Popup({
+		closeButton: false,
+		closeOnClick: false
+	});
+	map.on('mouseenter', 'affHousing', function(e){
+		const coordinates = e.features[0].geometry.coordinates.slice();
+		function emptyToYesNo(val){
+    if (val.length > 1){
+	return "Yes"} else {return "No"};
+  }
+  const Address = e.features[0].properties.Address;
+  const BBL = e.features[0].properties.BBL;
+  const Council = e.features[0].properties.Council;
+  const P_2050_1 =emptyToYesNo(e.features[0].properties.P_2050_1);
+  const P_2050_5 =emptyToYesNo(e.features[0].properties.P_2050_5);
+  const P_2100_1 =emptyToYesNo(e.features[0].properties.P_2100_1);
+  const P_2100_5 =emptyToYesNo(e.features[0].properties.P_2100_5);
+  var description = '<h4> ' +Address+'<br>'+
+                    'BBL: '+BBL+'<br>'+
+                    'City Council District: '+Council+ '</h4>'+
+                    '<p> In 2050 1 in 100yr Floodplain?: '+ P_2050_1 + '<br>' + 'In 2050 1 in 500yr Floodplain?: '+P_2050_5 +'<br>'+
+                    'In 2100 1 in 100yr Floodplain?: '+P_2100_1 +'<br>'+
+                    'In 2100 1 in 500yr Floodplain?: '+P_2100_5 +'</p>';
+  popup.setLngLat(coordinates[0][0]).setHTML(description).addTo(map);
+  map.on('mouseleave', 'affHousing', function() {
+  	map.getCanvas().style.cursor = '';
+  	popup.remove();
+});
+});
+	});
+</script>
+</body>
+</html>
