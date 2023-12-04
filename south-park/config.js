@@ -21,7 +21,6 @@ var config = {
             alignment: 'right',
             hidden: false,
             title: 'History of Redlining in Seattle',
-            image: 'images/redhookhouses.jpg',
             description: 'Seattle was redlined in 1936. The Home Owners Loan Corporation identified South Park as a high risk area and the neighborhood was given a D rating. The effects of redlining are still persistent today in the demographic makeup of the area, as well as many environmental issues that have continued to affect health and community wellbeing. Disproportionate environmental impacts are experienced across the U.S. in previously redlined communities, showing that although redlining is outlawed, it continues to affect the present day.',
             location: {
                 center: [-122.33753, 47.63142],
@@ -72,7 +71,6 @@ var config = {
             alignment: 'left',
             hidden: false,
             title: 'Priority Equity Areas in Seattle',
-            image: 'images/hurricanesandy.jpg.webp',
             description: 'This map shows the Highest Equity Priority group designated by the current Racial and Social Equity Index. This index compiles race, ethnicity, and other demographics with socioeconomic and health disadvantage indicators to identify areas of priority equity actions.',
             location: {
                 center: [-122.33753, 47.63142],
@@ -119,7 +117,6 @@ var config = {
             alignment: 'left',
             hidden: false,
             title: 'Environmental Justice in Seattle',
-            image: 'images/hurricanesandy.jpg.webp',
             description: 'This map shows priority equity areas, flood risk, and gaps in walkable open space.',
             location: {
                 center: [-122.33753, 47.63142],
@@ -181,7 +178,6 @@ var config = {
             alignment: 'right',
             hidden: false,
             title: 'Major Polluters in South Park, Seattle',
-            image: 'images/redhookhouses.jpg',
             description: 'South Park has a 13 year lower life expectancy than other neighborhoods in Seattle due to its location. <p> South Park is situated in a highly industrial area along the Duwamish River. The last five miles of the river was designated as a Superfund site in 2001 due to wastewater and industrial pollutants in the surrounding areas. This segment of the river was once one of the most polluted rivers in the country, although now the final phase of cleanup has been planned. The neighborhood is partially in the floodzone which faces disproportionate impacts due to the condition of the river.</p> <p>South Park is also located next to Boeing Field and is in the flight path for Seatac International Airport. Along with these pollutants, the surrounding highways produce a lot of traffic-related air pollution (TRAP) and almost the whole neighborhood is within the 500 meter TRAP buffer. The transformation of Highway-99 has the potential to eliminate a large portion of the TRAP area.</p>',
             location: {
                 center: [-122.31371, 47.52266],
@@ -240,7 +236,6 @@ var config = {
             alignment: 'left',
             hidden: false,
             title: 'South Park Seattle Context',
-            image: 'images/source.png',
             description: 'In addition to addressing the environmental concerns in the area, converting Highway-99 has the potential to reconnect the two distinct sides of South Park. The main commercial areas, along with health and food resources are clustered in the eastern side of the highway. The local elementary school is on the western side, and no area is free of highways and industry. The separation and inaccessibility across the neighborhood is a large issue that needs to be addressed.',
             location: {
                 center: [-122.32617, 47.52343],
@@ -337,7 +332,6 @@ var config = {
             alignment: 'left',
             hidden: false,
             title: 'Future... Speculative Areas of Intervention',
-            image: 'images/source.png',
             description: 'These three connections and two sides of the neighborhood could be greated enhanced by a redesign of Highway-99. Retaking the corridor would give back 44 acres to the community. Adding open space, safe pedestrian connections, and potentially regridding the streets that were dead-ended will help unify and bring an amenity to the community. This community deserves equittable changes that will foster community accessibility and resilience.',
             location: {
                 center: [-122.33205, 47.53090],
