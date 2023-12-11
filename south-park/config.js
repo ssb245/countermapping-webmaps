@@ -14,7 +14,7 @@ var config = {
     byline: 'Stephanie Belbeck // CRP 5850 // Final Project // Fall 2023',
     para1: 'The highway system across the United States has been negatively synonymous with environmental and social justice. Highway infrastructure razed, split, and displaced many communities of color and the impacts from these targeted actions are still seen in modern days. Some communities who have faced this highway divide are more known, such as in Palo Alto and East Palo Alto, but this is a phenomenon seen across the States. A more unknown area affected by marginalization and interstate racism is South Park, a neighborhood in Seattle, Washington. The United States landscape is tattooed with discriminatory history that is spatial and social. These inequities feel so rooted and permanent in current cities, but what is done is not done. There is no way to make up for the marginalization these communities have faced but there are ways to begin to make a change. Highway 99, built in 1959, is an unhealed wound running through the middle of South Park. It is time to address equity and stitch the community together by analyzing the cause, current conditions, and potentials for fostering resilience and connectivity in this split neighborhood.',
     para2: 'Cities across the United States have started to address the social and environmental impacts of the highway system. The highway-removal movement includes many projects, such as in Rochester, New York in 2013 where the local officials replaced a section of the highway with a boulevard that has contributed to healthy community practices, as well as increased local business and sparked $200 Million of economic development.  The first round of the Biden Administration’s grant program, “Reconnecting Communities Pilot Program” was awarded in February of 2023 (Mathis 2023). The long-term cost-benefit analysis of these projects are continuously being assessed. It would be interesting to learn how this could potentially lead to gentrification and displacement due to the new desirability of the neighborhood. The reclamation of Highway 99 would give back 44 acres to the South Park community. Organizations, such as Reconnect South Park, have been trying to push this dream forward (Blow 2023). Counter-mapping research will contribute data to aid decision-makers and help spatially convey the environmental and social justice conditions of the area. Visualizing inequity is a way to activate change.',
-    footer: 'Seattle GeoData, Google Earth, FEMA. title image: Ken Lambert / The Seattle Times <br> Created using <a href="https://github.com/mapbox/storytelling" target="_blank">Mapbox Storytelling</a> template.',
+    footer: 'Seattle GeoData, Google Earth, FEMA. title image: Ken Lambert / The Seattle Times. Community collage image sources: Helen Cole - BLUEJS, South Seattle Emerald, Crosscut, Seattle PAL, City of Seattle, Curbed Seattle, Edgar Lopez - The Seattle Globalist, and One Roof Foundation. <br> Created using <a href="https://github.com/mapbox/storytelling" target="_blank">Mapbox Storytelling</a> template.',
     chapters: [
         {
             id: 'history-identifier',
@@ -71,7 +71,8 @@ var config = {
             alignment: 'left',
             hidden: false,
             title: 'Priority Equity Areas in Seattle',
-            description: 'This map shows the Highest Equity Priority group designated by the current Racial and Social Equity Index. This index compiles race, ethnicity, and other demographics with socioeconomic and health disadvantage indicators to identify areas of priority equity actions.',
+            image: 'images/spdemog.png',
+            description: 'This map shows the Highest Equity Priority group designated by the current Racial and Social Equity Index. This index compiles race, ethnicity, and other demographics with socioeconomic and health disadvantage indicators to identify areas of priority equity actions. <p><i>ACS 2020, 2021</i></p>',
             location: {
                 center: [-122.33753, 47.63142],
                 zoom: 10,
@@ -117,7 +118,8 @@ var config = {
             alignment: 'left',
             hidden: false,
             title: 'Environmental Justice in Seattle',
-            description: 'This map shows priority equity areas, flood risk, and gaps in walkable open space.',
+            image: 'images/spflood.png',
+            description: 'This map shows priority equity areas, flood risk, and gaps in walkable open space. <p><i>image source: Flooding in South Park, The Seattle Times</i></p>',
             location: {
                 center: [-122.33753, 47.63142],
                 zoom: 10,
@@ -179,6 +181,7 @@ var config = {
             hidden: false,
             title: 'Major Polluters in South Park, Seattle',
             description: 'South Park has a 13 year lower life expectancy than other neighborhoods in Seattle due to its location. <p> South Park is situated in a highly industrial area along the Duwamish River. The last five miles of the river was designated as a Superfund site in 2001 due to wastewater and industrial pollutants in the surrounding areas. This segment of the river was once one of the most polluted rivers in the country, although now the final phase of cleanup has been planned. The neighborhood is partially in the floodzone which faces disproportionate impacts due to the condition of the river.</p> <p>South Park is also located next to Boeing Field and is in the flight path for Seatac International Airport. Along with these pollutants, the surrounding highways produce a lot of traffic-related air pollution (TRAP) and almost the whole neighborhood is within the 500 meter TRAP buffer. The transformation of Highway-99 has the potential to eliminate a large portion of the TRAP area.</p>',
+            image: 'images/pollutantlegend.png',
             location: {
                 center: [-122.31371, 47.52266],
                 zoom: 13,
@@ -218,25 +221,27 @@ var config = {
                 opacity: 0 },
                 ],
         },
-//         { 
-//             id: 'interlude',
-//             alignment: 'center',
-//             hidden: false,
-//             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultricies tempor purus, eget tempus sem bibendum vel. Maecenas at justo non felis accumsan condimentum vitae et leo. Sed sodales nec risus maximus congue. Ut quis tincidunt leo. Pellentesque sapien nisl, congue tempus mauris in, pulvinar mattis turpis. Nullam sit amet justo egestas, laoreet mauris ut, pulvinar ipsum. Pellentesque vehicula imperdiet iaculis. Nam in tellus metus. Donec a est non orci efficitur ornare id mattis eros. Aliquam vel facilisis ligula. Nullam tincidunt, sapien vitae bibendum consequat, nibh eros eleifend ligula, et aliquam enim justo eget felis. Sed nec vehicula metus. Pellentesque rutrum dui quis egestas hendrerit. Nullam auctor et tortor sit amet congue.',
-//             video: 'images/902-1_902-2364-PD2_preview.mp4',
-//             location: {
-//                 center: [-122.32617, 47.52343],
-//                 zoom: 14.63,
-//                 pitch: 53.26,
-//                 bearing: 31.64,
-//             },
-// },
+        { 
+            id: 'interlude',
+            alignment: 'center',
+            hidden: false,
+            title: 'South Park, Seattle',
+            description: 'A look into the community. South Park is a vibrant and diverse community. South Park is united by advocacy efforts and making neighborhood changes. The community faces many accessibility issues that are beyond the physical barrier of Highway-99. This community of changemakers bans together to address food and housing insecurity, flooding vulnerability, preserving and enhancing cultural roots, healthy living through recreation and improving open spaces, and facing oncoming gentrifying forces.',
+            image: 'images/spcollage.png',
+            location: {
+                center: [-122.32617, 47.52343],
+                zoom: 14.63,
+                pitch: 53.26,
+                bearing: 31.64,
+            },
+},
         {
             id: 'third-identifier',
             alignment: 'left',
             hidden: false,
             title: 'South Park Seattle Context',
             description: 'In addition to addressing the environmental concerns in the area, converting Highway-99 has the potential to reconnect the two distinct sides of South Park. The main commercial areas, along with health and food resources are clustered in the eastern side of the highway. The local elementary school is on the western side, and no area is free of highways and industry. The separation and inaccessibility across the neighborhood is a large issue that needs to be addressed.',
+            image: 'images/contextlegend.png',
             location: {
                 center: [-122.32617, 47.52343],
                 zoom: 14.33,
